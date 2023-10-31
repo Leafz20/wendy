@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background: linear-gradient(#FF69B4, #FFC0CB);
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+        }
+        .heart {
+            font-size: 24px;
+            color: red;
+            display: inline;
+            animation: float 3s linear infinite;
+        }
+        .photo-scroll {
+            display: flex;
+            justify-content: space-between; /* 图片和文字分布 */
+            align-items: center;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        .photo-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .photo-scroll img {
+            max-width: 100%;
+            height: auto;
+            display: none;
+            cursor: pointer;
+        }
+        .image-text {
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 5px;
+            display: none;
+            text-align: right; /* 文字右对齐 */
+            margin-right: 10px; /* 图片右侧间距 */
+        }
+        #kasal {
+            font-size: 24px;
+            color: white;
+            font-weight: bold;
+            display: none;
+        }
+        #hearts {
+            display: none;
+            animation: float 3s linear infinite;
+        }
+        #confirmation {
+            display: none;
+        }
+        #answer {
+            display: none;
+        }
+        .open-button {
+            width: 100px;
+            height: 50px;
+            font-size: 20px;
+            background: #3498db;
+            border: none;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            transform: scale(1);
+            display: block;
+            position: absolute;
+            top: 70px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: moveDown 2s linear; /* 添加按钮下移动画 */
+        }
+
+        .open-button:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes moveDown {
+            0% {top: 20px;}
+            100% {top: 70px;}
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Every moment with you is wonderful</h1>
+        <button class="open-button" onclick="displayConfirmation()">Open</button>
+        <div id="confirmation">
+            <p>Would you like to be my girlfriend?</p>
+            <button onclick="displayAnswer('yes')">Yes</button>
+            <button onclick="displayAnswer('no')">No</button>
+            <div id="answer"></div>
+        </div>
+        <div class="photo-scroll">
+            <div class="photo-container">
+                <img src="2023年8月31日.png" alt="Image 1" onclick="nextImage(0)">
+                <div class="image-text" id="text-1">This is our first day before confirming our meeting</div>
+            </div>
+            <div class="photo-container">
+                <img src="2023年10月30日.png" alt="Image 2" onclick="nextImage(1)">
+                <div class="image-text" id="text-2">Today is our 60th day together, I hope we can go through every season</div>
+            </div>
+            <div class="photo-container">
+                <img src="Wendy.jpg" alt="Image 3" onclick="nextImage(2)">
+                <div class="image-text" id="text-3">This is you, my love</div>
+            </div>
+        </div>
+        <div id="kasal">Let's take kasal</div>
+        <div id="hearts">
+            <span class="heart">❤️</span>
+            <span class="heart">❤️</span>
+            <span class="heart">❤️</span>
+        </div>
+    </div>
+
+   <audio autoplay loop>
+       <source src="PUBLIC - Make You Mine.mp3" type="audio/mpeg">
+       <source src="PUBLIC - Make You Mine.ogg" type="audio/ogg">
+   </audio>
+
+
+    <script>
+        var currentImage = 0;
+        var images = document.querySelectorAll(".photo-scroll img");
+        var kasalText = document.getElementById("kasal");
+        var hearts = document.getElementById("hearts");
+        var imageTexts = document.querySelectorAll(".image-text");
+
+        function displayConfirmation() {
+            var confirmation = document.getElementById("confirmation");
+            confirmation.style.display = "block";
+            var openButton = document.querySelector(".open-button");
+            openButton.style.display = "none";
+        }
+
+        function displayAnswer(answer) {
+            var answerDiv = document.getElementById("answer");
+            if (answer === 'yes') {
+                answerDiv.innerHTML = "I'd love to";
+                answerDiv.style.display = "block";
+                setTimeout(function() {
+                    nextImage(0);
+                }, 2000);
+            } else if (answer === 'no') {
+                answerDiv.innerHTML = "You know I'm serious";
+                answerDiv.style.display = "block";
+            }
+        }
+
+        function nextImage(index) {
+            if (index < images.length) {
+                images[index].style.display = "block";
+                imageTexts[index].style.display = "block";
+                if (index + 1 < images.length) {
+                    images[index].onclick = function() {
+                        nextImage(index + 1);
+                    };
+                } else {
+                    setTimeout(displayKasal, 2000);
+                }
+            }
+        }
+
+        function displayKasal() {
+            kasalText.style.display = "block";
+            animateKasalText();
+        }
+
+        function animateKasalText() {
+            var fontSize = 24;
+            var interval = setInterval(function() {
+                fontSize += 2;
+                kasalText.style.fontSize = fontSize + 'px';
+                if (fontSize >= 48) {
+                    clearInterval(interval);
+                    hearts.style.display = "block";
+                }
+            }, 100);
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
